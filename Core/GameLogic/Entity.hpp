@@ -10,13 +10,13 @@ namespace Game
     protected:
         int HP = 1;
         //position defined at the center of bounding box
-        Vector2u position{ 200, 300 };
+        Vector2f position{ 200.f, 300.f };
         float rotation{};
         Vector2u size{ 30, 30 };
         Vector2f velocity{ 0.0f, 0.0f };
 
     public:
-        Entity(const Vector2u& position_ = { 200, 300 }, const float rotation_ = 0.f, const Vector2u& size_ = { 30, 30 });
+        Entity(const Vector2f& position_ = { 200.f, 300.f }, const float rotation_ = 0.f, const Vector2u& size_ = { 30, 30 });
         virtual ~Entity() = default;
         /*
         Entity(const Vector2u& position_, const float rotation_, const Vector2u& size_);
@@ -29,7 +29,7 @@ namespace Game
         [[nodiscard]] bool CheckCollision(const Entity& other) const;
 
         [[nodiscard]] int GetHP() const;
-        [[nodiscard]] Vector2u GetPosition() const;
+        [[nodiscard]] Vector2f GetPosition() const;
         [[nodiscard]] float GetRotation() const;
         [[nodiscard]] Vector2u GetSize() const;
         [[nodiscard]] Vector2f GetVelocity() const;
@@ -37,7 +37,7 @@ namespace Game
         Entity& operator--();
         bool operator==(const Entity& other) const;
 
-        virtual void Move() = 0;
+        virtual void Move();
 
     };
 

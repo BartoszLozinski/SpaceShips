@@ -23,7 +23,7 @@ public:
     Sprite(Game::Vector2u position, float rotation);
     Sprite(Game::Vector2u position, float rotation, Game::Vector2u size);
     */
-    Sprite(const Game::Vector2u& position_ = { 200, 300 }, const float rotation_ = 0.f, const Game::Vector2u& size_ = { 30, 30 }, const float maxSpeed_ = 6.0f, const float speed_ = 0.f);
+    Sprite(const Game::Vector2f& position_ = { 200.f, 300.f }, const float rotation_ = 0.f, const Game::Vector2u& size_ = { 30, 30 }, const float maxSpeed_ = 6.0f, const float speed_ = 0.f);
 
     virtual ~Sprite() = default;
     
@@ -37,7 +37,7 @@ public:
     
     void increaseCounter();
     void setHP(int const hp);   
-    void setPosition(Game::Vector2u const newPos);
+    void setPosition(Game::Vector2f const newPos);
     void setSize(Game::Vector2u const size);
     void setRotation(float const rotation);
 

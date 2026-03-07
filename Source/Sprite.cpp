@@ -1,13 +1,13 @@
 #include "Headers/Sprite.hpp"
 #include <cmath>
 
-Sprite::Sprite(const Game::Vector2u& position_, const float rotation_, const Game::Vector2u& size_, const float maxSpeed_, const float speed_)
+Sprite::Sprite(const Game::Vector2f& position_, const float rotation_, const Game::Vector2u& size_, const float maxSpeed_, const float speed_)
     : Game::Entity(position_, rotation_, size_)
     , maxSpeed(maxSpeed_)
     , speed(speed_)
 {
     sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
+    sprite_.setPosition({ position_.x, position_.y });
     sprite_.setRotation(rotation);
 }
 
@@ -91,7 +91,7 @@ void Sprite::Move()
     velocity.x = round(-speed * sin(angle));
     velocity.y = round(speed * cos(angle));
     }
-    position += static_cast<Game::Vector2u>(velocity);    
+    position += velocity;    
 }
 
 /*____________________GETTERS___________________________*/
@@ -118,7 +118,7 @@ void Sprite::increaseCounter()
     counter_++;
 }
 
-void Sprite::setPosition(Game::Vector2u const newPos)
+void Sprite::setPosition(Game::Vector2f const newPos)
 {
     position = newPos;
 }

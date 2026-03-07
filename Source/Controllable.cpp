@@ -1,6 +1,6 @@
 #include "Headers/Controllable.hpp"
 
-Controllable::Controllable(const Game::Vector2u& position_, const float rotation_, const Game::Vector2u& size_, const float maxSpeed_, const float speed_, const float rotationSpeed_)
+Controllable::Controllable(const Game::Vector2f& position_, const float rotation_, const Game::Vector2u& size_, const float maxSpeed_, const float speed_, const float rotationSpeed_)
     : Sprite(position_, rotation_, size_, maxSpeed_, speed_)
     , rotationSpeed(rotationSpeed_)
 {}

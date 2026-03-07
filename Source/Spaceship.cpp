@@ -1,7 +1,7 @@
 #include "Headers/Spaceship.hpp"
 
 Spaceship::Spaceship()
-    : Controllable(Game::Vector2u(SCREEN_WIDTH/2, SCREEN_HEIGHT/2),
+    : Controllable(Game::Vector2f(static_cast<float>(SCREEN_WIDTH)/2, static_cast<float>(SCREEN_HEIGHT)/2),
                   0.f, // rotation
                   Game::Vector2u(40, 30), //size
                   9.f, //maxSpeed
@@ -13,7 +13,7 @@ Spaceship::Spaceship()
     bulletManager_.reserve(bulletsQuantity_);
        
     sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
+    sprite_.setPosition({ position.x, position.y });
     sprite_.setRotation(180.f);
 }
 
@@ -75,7 +75,7 @@ void Spaceship::draw(sf::RenderWindow& i_window)
     texture.loadFromFile("Images/Spaceship.png");
 
     sprite_.setTexture(texture);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
+    sprite_.setPosition({ position.x, position.y });
 
     i_window.draw(sprite_);
     
@@ -88,7 +88,7 @@ void Spaceship::draw(sf::RenderWindow& i_window)
         light.setTexture(engineTexture);
         light.setRotation(GetRotation());
         //light.setPosition(sf::Vector2f(position_.x, position_.y - cos(getRotation() * M_PI / 180) * 15));
-        light.setPosition(sf::Vector2f{ static_cast<float>(position.x), static_cast<float>(position.y) });
+        light.setPosition(sf::Vector2f{ position.x, position.y });
         light.setTextureRect(sf::IntRect(15 * std::floor(static_cast<int>(speed)/3), 0, 15, 15));
         i_window.draw(light);
     }
@@ -121,7 +121,7 @@ void Spaceship::organizeBullets()
 void Spaceship::reset()
 {
     HP = 5;
-    position = Game::Vector2u(static_cast<float>(SCREEN_WIDTH/2), static_cast<float>(SCREEN_HEIGHT/2));
+    position = Game::Vector2f(static_cast<float>(SCREEN_WIDTH/2), static_cast<float>(SCREEN_HEIGHT/2));
     bulletsQuantity_ = 20;
     points_ = 0;
     speed = 0.f;

@@ -5,18 +5,18 @@ SelfSteering::SelfSteering()
 {   
     setSize(Game::Vector2u(15, 30));
     sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
+    sprite_.setPosition({ position.x, position.y });
     sprite_.setRotation(180.f);
     speed = 11.f;
     rotationSpeed = 5.f;
 }
 
-SelfSteering::SelfSteering(const Game::Vector2u& position)
+SelfSteering::SelfSteering(const Game::Vector2f& position)
     : Controllable(position)
 {   
     setSize(Game::Vector2u(15, 30));
     sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
+    sprite_.setPosition({ position.x, position.y });
     sprite_.setRotation(180.f);
     speed = 11.f;
     rotationSpeed = 5.f;

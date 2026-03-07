@@ -18,7 +18,7 @@ public:
     Controllable(Game::Vector2u position);
     Controllable(Game::Vector2u position, float rotation, float maxSpeed, float speed, float acceleration, float rotationSpeed);
     */
-    Controllable(const Game::Vector2u& position_ = { 200, 300 }, const float rotation_ = 0.f, const Game::Vector2u& size_ = { 30, 30 }, const float maxSpeed_ = 6.0f, const float speed_ = 0.f, const float rotationSpeed_ = 3.0f);
+    Controllable(const Game::Vector2f& position_ = { 200.f, 300.f }, const float rotation_ = 0.f, const Game::Vector2u& size_ = { 30, 30 }, const float maxSpeed_ = 6.0f, const float speed_ = 0.f, const float rotationSpeed_ = 3.0f);
 
     virtual ~Controllable() = default;
     

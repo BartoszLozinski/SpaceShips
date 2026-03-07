@@ -4,7 +4,7 @@
 
 namespace Game
 {
-    Entity::Entity(const Vector2u& position_, const float rotation_, const Vector2u& size_)
+    Entity::Entity(const Vector2f& position_, const float rotation_, const Vector2u& size_)
         : position(position_)
         , rotation(rotation_)
         , size(size_)
@@ -39,10 +39,15 @@ namespace Game
     }
 
     int Entity::GetHP() const { return HP; }
-    Vector2u Entity::GetPosition() const { return position; }
+    Vector2f Entity::GetPosition() const { return position; }
     float Entity::GetRotation() const { return rotation; }
     Vector2u Entity::GetSize() const { return size; }
     Vector2f Entity::GetVelocity() const { return velocity; }
+
+    void Entity::Move()
+    {
+        position += velocity;
+    }
 
     Entity& Entity::operator--()
     {

@@ -44,7 +44,7 @@ TEST(BulletsTest, killingTest)
     ship1.getBulletManager().push_back(std::make_shared<Bullet>(Game::Vector2u(200, 500), 0));
     ship1.getBulletManager().push_back(std::make_shared<Bullet>(Game::Vector2u(200, 500), 0));
 
-    ship1.getBulletManager()[1]->setPosition(Game::Vector2u(-10, 500));
+    ship1.getBulletManager()[1]->setPosition(Game::Vector2f(-10.f, 500.f));
     ship1.Move();
     ship1.organizeBullets();
 
