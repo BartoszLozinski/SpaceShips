@@ -60,7 +60,7 @@ bool Sprite::checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorO
 void Sprite::draw(sf::RenderWindow& i_window)
 {
     sf::Texture texture;
-    texture.loadFromFile("../Source/Images/Sprite.png");
+    texture.loadFromFile("Images/Sprite.png");
 
     sprite_.setTexture(texture);
     sprite_.setPosition(position_);

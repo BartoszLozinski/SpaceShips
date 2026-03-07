@@ -53,7 +53,7 @@ void EnemiesManager::drawAll(sf::RenderWindow& i_window)
         {   
             sf::Sprite boom;
             sf::Texture texture;
-            texture.loadFromFile("../Source/Images/Boom.png");
+            texture.loadFromFile("Images/Boom.png");
             boom.setPosition(sf::Vector2f(sprite->getPosition().x - 15, sprite->getPosition().y - 15));
             boom.setTexture(texture);
             boom.setTextureRect(sf::IntRect(30 * sprite->getCounter(), 0, 30, 30));

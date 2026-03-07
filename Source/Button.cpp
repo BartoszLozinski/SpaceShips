@@ -4,7 +4,7 @@ Button::Button(const sf::Vector2f position, const std::string textToPrint)
     : position_(position)
     , textToPrint_(textToPrint)
 {
-    font_.loadFromFile("../Source/Arial.ttf");
+    font_.loadFromFile("Images/Arial.ttf");
     text_.setFont(font_);
     text_.setPosition(position_);
     text_.setFillColor(sf::Color::Red);

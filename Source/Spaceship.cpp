@@ -73,7 +73,7 @@ bool Spaceship::checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vect
 void Spaceship::draw(sf::RenderWindow& i_window)
 {
     sf::Texture texture;
-    texture.loadFromFile("../Source/Images/Spaceship.png");
+    texture.loadFromFile("Images/Spaceship.png");
 
     sprite_.setTexture(texture);
     sprite_.setPosition(position_);
@@ -84,7 +84,7 @@ void Spaceship::draw(sf::RenderWindow& i_window)
     {
         sf::Sprite light;
         sf::Texture engineTexture;
-        engineTexture.loadFromFile("../Source/Images/EngineLight.png");
+        engineTexture.loadFromFile("Images/EngineLight.png");
         light.setOrigin(7.5f, 26.f);
         light.setTexture(engineTexture);
         light.setRotation(getRotation());

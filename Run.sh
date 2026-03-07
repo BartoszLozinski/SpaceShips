@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [-d build]; then
-    ./build/SpaceShips
+    ./build/Debug/SpaceShips
 
 else
     ./Build.sh

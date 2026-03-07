@@ -125,7 +125,7 @@ void SelfSteering::aimTarget(const std::shared_ptr<Sprite>& sprite_ptr)
 void SelfSteering::draw(sf::RenderWindow& i_window)
 {
     sf::Texture texture;
-    texture.loadFromFile("../Source/Images/Rocket.png");
+    texture.loadFromFile("Images/Rocket.png");
 
     sprite_.setTexture(texture);
     sprite_.setPosition(position_);

@@ -16,7 +16,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Window.hpp>
-
+#include <filesystem>
+#include <format>
 
 size_t LVL = 1;
 
@@ -29,7 +30,7 @@ int main()
     EnemiesManager enemiesManager;
 
     sf::Font font;
-    font.loadFromFile("../Source/Arial.ttf");
+    font.loadFromFile("Images/Arial.ttf");
     //text display: level, points, hp
     sf::Text LVL_TEXT;
     LVL_TEXT.setFont(font);
@@ -60,7 +61,7 @@ int main()
 
     sf::Sprite background;
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("../Source/Images/Background.png");
+    backgroundTexture.loadFromFile("Images/Background.png");
     background.setTexture(backgroundTexture);
         
     Menu menu;
