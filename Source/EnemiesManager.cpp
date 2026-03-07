@@ -12,7 +12,7 @@ void EnemiesManager::addMoveable(const size_t level)
     {
         direction = 360 + direction;
     }
-    manager_.push_back(std::make_shared<Sprite>(Game::Vector2u(static_cast<unsigned>(getRandom()), -20),
+    manager_.push_back(std::make_shared<Sprite>(Game::Vector2f(static_cast<float>(getRandom()), -20.f),
                                                 direction,
                                                 Game::Vector2u{30, 30},
                                                 level * 1.f,
@@ -21,8 +21,8 @@ void EnemiesManager::addMoveable(const size_t level)
 
 void EnemiesManager::addSelfSteering()
 {
-    manager_.push_back(std::make_shared<SelfSteering>(Game::Vector2u(static_cast<unsigned>(getRandom()),
-                                                        static_cast<unsigned>(SCREEN_HEIGHT) -1 )));
+    manager_.push_back(std::make_shared<SelfSteering>(Game::Vector2f(static_cast<float>(getRandom()),
+                                                        static_cast<float>(SCREEN_HEIGHT) -1.f )));
 }
 
 void EnemiesManager::clearEnemies()

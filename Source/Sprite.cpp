@@ -65,6 +65,7 @@ void Sprite::draw(sf::RenderWindow& i_window)
 
     sprite_.setTexture(texture);
     sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
+    sprite_.setRotation(rotation);
     
     i_window.draw(sprite_);
 }

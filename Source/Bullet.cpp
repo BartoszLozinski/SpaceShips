@@ -11,6 +11,7 @@ void Bullet::draw(sf::RenderWindow& i_window)
 
     sprite_.setTexture(texture);
     sprite_.setPosition({ position.x, position.y });
+    sprite_.setRotation(rotation);
 
     i_window.draw(sprite_);
 }

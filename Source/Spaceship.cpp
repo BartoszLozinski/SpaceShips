@@ -2,7 +2,7 @@
 
 Spaceship::Spaceship()
     : Controllable(Game::Vector2f(static_cast<float>(SCREEN_WIDTH)/2, static_cast<float>(SCREEN_HEIGHT)/2),
-                  0.f, // rotation
+                  180.f, // rotation
                   Game::Vector2u(40, 30), //size
                   9.f, //maxSpeed
                   0.f, //speed
@@ -14,7 +14,7 @@ Spaceship::Spaceship()
        
     sprite_.setOrigin(size.x/2, size.y/2);
     sprite_.setPosition({ position.x, position.y });
-    sprite_.setRotation(180.f);
+    sprite_.setRotation(rotation);
 }
 
 void Spaceship::checkBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites)
@@ -134,6 +134,7 @@ void Spaceship::shoot()
        shootAbility_ && bulletsQuantity_ > 0)
     {
         bulletManager_.push_back(std::make_shared<Bullet>(position, Spaceship::GetRotation()));
+        bulletManager_.back()->setSpeed(8.f);
         previousShootTime_ = std::chrono::steady_clock::now();
         bulletsQuantity_--;
         shootAbility_ = false;

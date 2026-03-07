@@ -76,12 +76,14 @@ void Controllable::changeDirection()
 
 void Controllable::turnLeft()
 {
-    sprite_.setRotation(sprite_.getRotation() - rotationSpeed);
+    rotation = GetRotation() - rotationSpeed;
+    sprite_.setRotation(rotation);
 }
 
 void Controllable::turnRight()
 {
-    sprite_.setRotation(sprite_.getRotation() + rotationSpeed);
+    rotation = GetRotation() + rotationSpeed;
+    sprite_.setRotation(rotation);
 }
 
 /*________________________GETTERS________________________________*/
