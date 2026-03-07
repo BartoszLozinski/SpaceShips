@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ -e /build/TESTURNNER ] ; then
-    ./build/TESTRUNNER
+if [ -e /build/Debug/TESTURNNER ] ; then
+    ./build/Debug/TESTRUNNER
 
 else
-    ./Build.sh
-    cd build
+    ./Build.sh Debug
+    cd build/Debug
     ./TESTRUNNER
 fi
 

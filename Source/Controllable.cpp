@@ -1,17 +1,13 @@
 #include "Headers/Controllable.hpp"
 
-Controllable::Controllable(sf::Vector2f position, float rotation, sf::Vector2f size,  float maxSpeed, float speed, float acceleration, float rotationSpeed)
-    : Moveable(position, rotation, size, maxSpeed, speed)
-    , acceleration_(acceleration)
-    , rotationSpeed_(rotationSpeed)
-{
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
-    sprite_.setRotation(rotation);
-}
+Controllable::Controllable(const Game::Vector2u& position_, const float rotation_, const Game::Vector2u& size_, const float maxSpeed_, const float speed_, const float rotationSpeed_)
+    : Sprite(position_, rotation_, size_, maxSpeed_, speed_)
+    , rotationSpeed(rotationSpeed_)
+{}
 
-Controllable::Controllable(sf::Vector2f position, float rotation, float maxSpeed, float speed, float acceleration, float rotationSpeed)
-    : Moveable(position, rotation,  maxSpeed, speed)
+/*
+Controllable::Controllable(Game::Vector2u position, float rotation, float maxSpeed, float speed, float acceleration, float rotationSpeed)
+    : Sprite(position, rotation, maxSpeed, speed)
     , acceleration_(acceleration)
     , rotationSpeed_(rotationSpeed)
 {
@@ -27,40 +23,41 @@ Controllable::Controllable()
     sprite_.setRotation(0.f);
 }
 
-Controllable::Controllable(sf::Vector2f position)
+Controllable::Controllable(Game::Vector2u position)
     : Moveable(position)
 {
     sprite_.setOrigin(size_.x/2, size_.y/2);
     sprite_.setPosition(position_);
     sprite_.setRotation(0.f);
 }
+*/
 
 void Controllable::accelerate()
 {
     //speed up
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) and
-       speed_ < maxSpeed_)
+       speed < maxSpeed)
     {
-        if(speed_ >= maxSpeed_ - acceleration_)
+        if(speed >= maxSpeed - acceleration)
         {
-            speed_ = maxSpeed_;
+            speed = maxSpeed;
         }
         else
         {
-            speed_ += acceleration_;
+            speed += acceleration;
         }
     }
     //slow down
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) and
-       speed_ > 0.f)
+       speed > 0.f)
     {
-        if(speed_ < acceleration_)
+        if(speed < acceleration)
         {
-            speed_ = 0.f;
+            speed = 0.f;
         }
         else
         {
-            speed_ -= acceleration_;
+            speed -= acceleration;
         }
     }
 }
@@ -79,36 +76,36 @@ void Controllable::changeDirection()
 
 void Controllable::turnLeft()
 {
-    sprite_.setRotation(sprite_.getRotation() - rotationSpeed_);
+    sprite_.setRotation(sprite_.getRotation() - rotationSpeed);
 }
 
 void Controllable::turnRight()
 {
-    sprite_.setRotation(sprite_.getRotation() + rotationSpeed_);
+    sprite_.setRotation(sprite_.getRotation() + rotationSpeed);
 }
 
 /*________________________GETTERS________________________________*/
 
 float Controllable::getAcceleration() const
 {
-    return this->acceleration_;
+    return this->acceleration;
 }
 
 float Controllable::getRotationSpeed() const
 {
-    return this->rotationSpeed_;
+    return this->rotationSpeed;
 }
 
 /*____________________SETTERS_________________________________*/
 
 void Controllable::setAcceleration(float acceleration)
 {
-    acceleration_ = acceleration;
+    this->acceleration = acceleration;
 }
 
 void Controllable::setRotationSpeed(float rotationSpeed)
 {
-    rotationSpeed_ = rotationSpeed;
+    this->rotationSpeed = rotationSpeed;
 }
 
 

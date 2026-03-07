@@ -14,7 +14,6 @@ set(SFML_LIB    sfml-graphics
                 sfml-system)
 
 set(SRC         Source/Sprite.cpp
-                Source/Moveable.cpp
                 Source/Controllable.cpp
                 Source/Bullet.cpp
                 Source/Spaceship.cpp
@@ -29,11 +28,15 @@ add_library(${PROJECT_NAME}-lib STATIC  ${SRC})
 add_executable(${PROJECT_NAME}  main.cpp)
 add_executable(TESTRUNNER   testRunner.cpp)
 
+add_subdirectory(Core/GameLogic)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE   ${SFML_LIB}
+                                                GameLogic
                                                 ${PROJECT_NAME}-lib)
 
 target_link_libraries(TESTRUNNER PRIVATE    ${GTEST_LIBRARIES}
                                             ${GMOCK_LIBRARIES}
+                                            GameLogic
                                             ${PROJECT_NAME}-lib
                                             ${SFML_LIB}
                                             pthread)

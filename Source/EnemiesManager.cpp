@@ -12,16 +12,17 @@ void EnemiesManager::addMoveable(const size_t level)
     {
         direction = 360 + direction;
     }
-    manager_.push_back(std::make_shared<Moveable>(sf::Vector2f(static_cast<float>(getRandom()), -20),
+    manager_.push_back(std::make_shared<Sprite>(Game::Vector2u(static_cast<unsigned>(getRandom()), -20),
                                                 direction,
+                                                Game::Vector2u{30, 30},
                                                 level * 1.f,
                                                 level * 1.f));
 }
 
 void EnemiesManager::addSelfSteering()
 {
-    manager_.push_back(std::make_shared<SelfSteering>(sf::Vector2f(static_cast<float>(getRandom()),
-                                                        static_cast<float>(SCREEN_HEIGHT) -1 )));
+    manager_.push_back(std::make_shared<SelfSteering>(Game::Vector2u(static_cast<unsigned>(getRandom()),
+                                                        static_cast<unsigned>(SCREEN_HEIGHT) -1 )));
 }
 
 void EnemiesManager::clearEnemies()
@@ -29,16 +30,16 @@ void EnemiesManager::clearEnemies()
     
     for(auto& sprite : manager_)
     {
-        if(sprite->getPosition().x < 0 or
-           sprite->getPosition().x > SCREEN_WIDTH or
-           sprite->getPosition().y > SCREEN_HEIGHT)
+        if(sprite->GetPosition().x < 0 or
+           sprite->GetPosition().x > SCREEN_WIDTH or
+           sprite->GetPosition().y > SCREEN_HEIGHT)
         {
             sprite->setHP(0);
         }  
     }
     auto it = std::remove_if(manager_.begin(), manager_.end(), [&](const auto& sprite)
             {
-                return (sprite->getHP() <= 0 and sprite->getCounter() >= 4);
+                return (sprite->GetHP() <= 0 and sprite->getCounter() >= 4);
             });
     
    manager_.erase(it, manager_.end());
@@ -49,12 +50,12 @@ void EnemiesManager::drawAll(sf::RenderWindow& i_window)
     for(auto& sprite : manager_)
     {
         sprite->draw(i_window);
-        if(sprite->getHP() <= 0 and sprite->getCounter() <= 4)
+        if(sprite->GetHP() <= 0 && sprite->getCounter() <= 4)
         {   
             sf::Sprite boom;
             sf::Texture texture;
             texture.loadFromFile("Images/Boom.png");
-            boom.setPosition(sf::Vector2f(sprite->getPosition().x - 15, sprite->getPosition().y - 15));
+            boom.setPosition(sf::Vector2f(sprite->GetPosition().x - 15, sprite->GetPosition().y - 15));
             boom.setTexture(texture);
             boom.setTextureRect(sf::IntRect(30 * sprite->getCounter(), 0, 30, 30));
             i_window.draw(boom);            
@@ -67,9 +68,9 @@ void EnemiesManager::organizeEnemies(const size_t level, const Spaceship& target
 {
     deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - previousEnemyRelease).count();
     
-    if(deltaTime > 100 and manager_.size() < maxEnemies)
+    if(deltaTime > 100 && manager_.size() < maxEnemies)
     {
-        if(level >= 2 and getRandom() % (100/(level*2)) == 0)
+        if(level >= 2 && getRandom() % (100/(level*2)) == 0)
         {
             addSelfSteering();  
         }
@@ -90,12 +91,12 @@ void EnemiesManager::organizeEnemies(const size_t level, const Spaceship& target
         {
             selfSteering->aimTarget(target);
             selfSteering->regulateDirection();
-            selfSteering->updatePosition();
+            selfSteering->Move();
             sprite->checkSpritesCollision(temporaryManager);
         }
         else
         {
-            dynamic_pointer_cast<Moveable>(sprite)->updatePosition();
+            dynamic_pointer_cast<Sprite>(sprite)->Move();
         }
     }
 }

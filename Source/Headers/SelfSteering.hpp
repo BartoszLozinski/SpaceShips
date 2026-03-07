@@ -15,12 +15,12 @@
 class SelfSteering : public Controllable
 {
 protected:
-    sf::Vector2f targetPosition_{0.0, 0.0};
+    Game::Vector2u targetPosition_{0, 0};
     float targetDirection_ = 180.f;
     float warningDistance_ = 200.f;
 public:
     SelfSteering();
-    SelfSteering(sf::Vector2f position);
+    SelfSteering(const Game::Vector2u& position_);
     virtual ~SelfSteering() = default;
     
     void aimWithoutCollision(const Sprite& target,const std::vector<std::shared_ptr<Sprite>> obstacles);

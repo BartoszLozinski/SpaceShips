@@ -2,7 +2,6 @@
 #ifndef ENEMIESMANAGER
 #define ENEMIESMANAGER
 
-#include "Moveable.hpp"
 #include "Bullet.hpp"
 #include "SelfSteering.hpp"
 #include "Spaceship.hpp"

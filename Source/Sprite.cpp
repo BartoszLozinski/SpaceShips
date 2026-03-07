@@ -1,56 +1,57 @@
 #include "Headers/Sprite.hpp"
+#include <cmath>
 
-Sprite::Sprite(sf::Vector2f position, float rotation, sf::Vector2f size)
-    : position_(position)
-    , size_(size)
-{   
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
+Sprite::Sprite(const Game::Vector2u& position_, const float rotation_, const Game::Vector2u& size_, const float maxSpeed_, const float speed_)
+    : Game::Entity(position_, rotation_, size_)
+    , maxSpeed(maxSpeed_)
+    , speed(speed_)
+{
+    sprite_.setOrigin(size.x/2, size.y/2);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
     sprite_.setRotation(rotation);
 }
 
-Sprite::Sprite(sf::Vector2f position, float rotation)
-    : position_(position)
+/*
+Sprite::Sprite(Game::Vector2u position, float rotation, Game::Vector2u size)
+    : Sprite(position, rotation, size)
+{   
+    sprite_.setOrigin(size.x/2, size.y/2);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
+    sprite_.setRotation(rotation);
+}
+
+Sprite::Sprite(Game::Vector2u position, float rotation)
+    : Entity(position, rotation)
 {
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
+    sprite_.setOrigin(size.x/2, size.y/2);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
     sprite_.setRotation(rotation);
 }
 
 Sprite::Sprite()
+    : Entity()
 {
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
+    sprite_.setOrigin(size.x/2, size.y/2);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
 }
 
-Sprite::Sprite(sf::Vector2f position)
-    : Sprite(position, 0)
+Sprite::Sprite(Game::Vector2u position)
+    : Entity(position)
 {
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
+    sprite_.setOrigin(size.x/2, size.y/2);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
 }
-
-bool Sprite::checkCollision(const std::shared_ptr<Sprite>& sprite)
-{   
-    bool status = false;
-    if(sprite_.getGlobalBounds().intersects(
-            sprite->getSprite().getGlobalBounds()
-                ))
-    {
-        status = true;
-    }
-    return status;
-}
+*/
 
 bool Sprite::checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites)
 {   
     bool CollisionStatus = false;
     for(auto& sprite : vectorOfSprites)
     {   
-        if(checkCollision(sprite))
+        if(CheckCollision(*sprite))
         {
-            HP_--;
-            sprite->setHP(sprite->getHP() - 1);
+            HP--;
+            --*sprite;
             CollisionStatus = true;
         }
     }
@@ -63,7 +64,7 @@ void Sprite::draw(sf::RenderWindow& i_window)
     texture.loadFromFile("Images/Sprite.png");
 
     sprite_.setTexture(texture);
-    sprite_.setPosition(position_);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
     
     i_window.draw(sprite_);
 }
@@ -71,8 +72,8 @@ void Sprite::draw(sf::RenderWindow& i_window)
 bool Sprite::isInMap()
 {
     //checking if the center of the sprite is inside the map
-    if(position_.x >= 0 and position_.x <= SCREEN_WIDTH and
-       position_.y >= 0 and position_.y <= SCREEN_HEIGHT)
+    if(position.x >= 0 && position.x <= SCREEN_WIDTH &&
+       position.y >= 0 && position.y <= SCREEN_HEIGHT)
     {   
         return true;
     }
@@ -82,6 +83,17 @@ bool Sprite::isInMap()
     }
 }
 
+void Sprite::Move()
+{
+    float angle = sprite_.getRotation() * M_PI / 180; // deg to radians
+    using namespace std;
+    {
+    velocity.x = round(-speed * sin(angle));
+    velocity.y = round(speed * cos(angle));
+    }
+    position += static_cast<Game::Vector2u>(velocity);    
+}
+
 /*____________________GETTERS___________________________*/
 
 size_t Sprite::getCounter() const
@@ -89,34 +101,14 @@ size_t Sprite::getCounter() const
     return this->counter_;
 }
 
-int Sprite::getHP() const
-{
-    return this->HP_;
-}
-
-sf::Vector2f Sprite::getPosition() const
-{
-    return this->position_;
-}
-
-float Sprite::getRotation() const
-{
-    return this->sprite_.getRotation();
-}
-
-sf::Vector2f Sprite::getSize() const
-{
-    return this->size_;
-}
-
 sf::Sprite Sprite::getSprite() const
 {
     return this->sprite_;
 }
 
-sf::Vector2f Sprite::getVelocity() const
+float Sprite::getSpeed() const
 {
-    return this->velocity_;
+    return this->speed;
 }
 
 /*__________________SETTERS___________________________*/
@@ -126,14 +118,14 @@ void Sprite::increaseCounter()
     counter_++;
 }
 
-void Sprite::setPosition(sf::Vector2f const newPos)
+void Sprite::setPosition(Game::Vector2u const newPos)
 {
-    position_ = newPos;
+    position = newPos;
 }
 
 void Sprite::setHP(int const hp)
 {
-    HP_ = hp;
+    HP = hp;
 }
 
 void Sprite::setRotation(float const rotation)
@@ -141,21 +133,26 @@ void Sprite::setRotation(float const rotation)
     sprite_.setRotation(rotation);
 }
 
-void Sprite::setSize(sf::Vector2f const size)
+void Sprite::setSize(Game::Vector2u const size)
 {
-    size_ = size;
+    this->size = size;
+}
+
+void Sprite::setSpeed(float newSpeed)
+{
+    speed = newSpeed;
 }
 
 /*______________________OPERATORS_______________________*/
 
 Sprite& Sprite::operator--()
 {
-    HP_--;
+    HP--;
     return *this;
 }
 
 bool Sprite::operator==(const Sprite& other) const
 {
-    return position_ == other.position_;
+    return position == other.position;
 }
 

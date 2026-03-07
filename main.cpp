@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "Source/Headers/Sprite.hpp"
-#include "Source/Headers/Moveable.hpp"
 #include "Source/Headers/Controllable.hpp"
 #include "Source/Headers/Bullet.hpp"
 #include "Source/Headers/Spaceship.hpp"
@@ -104,7 +103,7 @@ int main()
         //Level/Points/HP/Bullets view    
         LVL_TEXT.setString("Level: " + std::to_string(LVL));
         POINTS_TEXT.setString("Points: " + std::to_string(spaceship.getPoints()));
-        HP_TEXT.setString("HP: " + std::to_string(spaceship.getHP()));
+        HP_TEXT.setString("HP: " + std::to_string(spaceship.GetHP()));
         BULLETS_TEXT.setString("Bullets: " + std::to_string(spaceship.getBullets()));
         
         enemiesManager.organizeEnemies(LVL, spaceship);
@@ -113,7 +112,7 @@ int main()
         spaceship.changeDirection();
         spaceship.shoot();
         spaceship.shootBack();
-        spaceship.updatePosition();
+        spaceship.Move();
         spaceship.checkBulletsCollision(enemiesManager.getManager());
 
         LVL = (spaceship.getPoints() / 10) + 1;
@@ -125,7 +124,7 @@ int main()
             --spaceship;
         }
     
-        if(spaceship.getHP() <= 0)
+        if(spaceship.GetHP() <= 0)
         {
             //YOU LOST
             sf::Text LOOSE_TEXT;

@@ -1,24 +1,25 @@
 #include "Headers/SelfSteering.hpp"
 
 SelfSteering::SelfSteering()
+    : Controllable()
 {   
-    setSize(sf::Vector2f(15.f, 30.f));
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
+    setSize(Game::Vector2u(15, 30));
+    sprite_.setOrigin(size.x/2, size.y/2);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
     sprite_.setRotation(180.f);
-    speed_ = 11.f;
-    rotationSpeed_ = 5.f;
+    speed = 11.f;
+    rotationSpeed = 5.f;
 }
 
-SelfSteering::SelfSteering(sf::Vector2f position)
+SelfSteering::SelfSteering(const Game::Vector2u& position)
     : Controllable(position)
 {   
-    setSize(sf::Vector2f(15.f, 30.f));
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
+    setSize(Game::Vector2u(15, 30));
+    sprite_.setOrigin(size.x/2, size.y/2);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
     sprite_.setRotation(180.f);
-    speed_ = 11.f;
-    rotationSpeed_ = 5.f;
+    speed = 11.f;
+    rotationSpeed = 5.f;
 }
 
 void SelfSteering::aimWithoutCollision(const Sprite& target, const std::vector<std::shared_ptr<Sprite>> obstacles)
@@ -26,51 +27,51 @@ void SelfSteering::aimWithoutCollision(const Sprite& target, const std::vector<s
     aimTarget(target);
     regulateDirection();
 
-    targetPosition_ = target.getPosition();
-    targetDirection_ = atan((position_.x - targetPosition_.x) 
-                             / (targetPosition_.y - position_.y)) * (180.f / M_PI);
+    targetPosition_ = target.GetPosition();
+    targetDirection_ = atan((position.x - targetPosition_.x) 
+                             / (targetPosition_.y - position.y)) * (180.f / M_PI);
 
     for(auto& obstacle : obstacles)
     {
         auto distance = pow(
-                        pow((obstacle->getPosition().x - position_.x),2) + 
-                        pow((obstacle->getPosition().y - position_.y),2),0.5);
+                        pow((obstacle->GetPosition().x - position.x),2) + 
+                        pow((obstacle->GetPosition().y - position.y),2),0.5);
 
         if(distance < warningDistance_)
         {
             std::cout << "Warning!!!\n";
             auto predictedDistance = pow(
-                        pow((obstacle->getPosition().x + obstacle->getVelocity().x
-                        - position_.x - velocity_.x),2) + 
-                        pow((obstacle->getPosition().y + obstacle->getVelocity().x
-                        - position_.y - velocity_.y),2)
+                        pow((obstacle->GetPosition().x + obstacle->GetVelocity().x
+                        - position.x - velocity.x),2) + 
+                        pow((obstacle->GetPosition().y + obstacle->GetVelocity().x
+                        - position.y - velocity.y),2)
                                     ,0.5);
 
             if(predictedDistance < distance)
             {   
                 //predicting turning left
-                auto predictedDirection = (sprite_.getRotation() - rotationSpeed_) * M_PI / 180.f;
-                auto predictedVelocity = velocity_;
-                predictedVelocity.x = round(-speed_ * sin(predictedDirection));
-                predictedVelocity.y = round(speed_ * cos(predictedDirection));
+                auto predictedDirection = (sprite_.getRotation() - rotationSpeed) * M_PI / 180.f;
+                auto predictedVelocity = velocity;
+                predictedVelocity.x = round(-speed * sin(predictedDirection));
+                predictedVelocity.y = round(speed * cos(predictedDirection));
 
                 auto predictedLeft = pow(
-                        pow((obstacle->getPosition().x + obstacle->getVelocity().x
-                        - position_.x - predictedVelocity.x),2) + 
-                        pow((obstacle->getPosition().y + obstacle->getVelocity().x
-                        - position_.y - predictedVelocity.y),2)
+                        pow((obstacle->GetPosition().x + obstacle->GetVelocity().x
+                        - position.x - predictedVelocity.x),2) + 
+                        pow((obstacle->GetPosition().y + obstacle->GetVelocity().x
+                        - position.y - predictedVelocity.y),2)
                                     ,0.5);
 
                 //predicting turning right
-                predictedDirection = (sprite_.getRotation() + rotationSpeed_) * M_PI / 180.f;
-                predictedVelocity.x = round(-speed_ * sin(predictedDirection));
-                predictedVelocity.y = round(speed_ * cos(predictedDirection));
+                predictedDirection = (sprite_.getRotation() + rotationSpeed) * M_PI / 180.f;
+                predictedVelocity.x = round(-speed * sin(predictedDirection));
+                predictedVelocity.y = round(speed * cos(predictedDirection));
 
                 auto predictedRight = pow(
-                        pow((obstacle->getPosition().x + obstacle->getVelocity().x
-                        - position_.x - predictedVelocity.x),2) + 
-                        pow((obstacle->getPosition().y + obstacle->getVelocity().x
-                        - position_.y - predictedVelocity.y),2)
+                        pow((obstacle->GetPosition().x + obstacle->GetVelocity().x
+                        - position.x - predictedVelocity.x),2) + 
+                        pow((obstacle->GetPosition().y + obstacle->GetVelocity().x
+                        - position.y - predictedVelocity.y),2)
                                     ,0.5);
                 
                 if(predictedLeft < predictedRight)
@@ -90,11 +91,11 @@ void SelfSteering::aimWithoutCollision(const Sprite& target, const std::vector<s
 
 void SelfSteering::aimTarget(const Sprite& sprite)
 {
-    targetPosition_ = sprite.getPosition();
-    targetDirection_ = atan((position_.x - targetPosition_.x) 
-                             / (targetPosition_.y - position_.y)) * (180.f / M_PI);
+    targetPosition_ = sprite.GetPosition();
+    targetDirection_ = atan((position.x - targetPosition_.x) 
+                             / (targetPosition_.y - position.y)) * (180.f / M_PI);
 
-    if(targetPosition_.y < position_.y)
+    if(targetPosition_.y < position.y)
     {
         targetDirection_ += 180.f;
     }
@@ -107,11 +108,11 @@ void SelfSteering::aimTarget(const Sprite& sprite)
 
 void SelfSteering::aimTarget(const std::shared_ptr<Sprite>& sprite_ptr)
 {
-    targetPosition_ = sprite_ptr->getPosition();
-    targetDirection_ = atan((position_.x - targetPosition_.x) 
-                             / (targetPosition_.y - position_.y)) * (180.f / M_PI);
+    targetPosition_ = sprite_ptr->GetPosition();
+    targetDirection_ = atan((position.x - targetPosition_.x) 
+                             / (targetPosition_.y - position.y)) * (180.f / M_PI);
 
-    if(targetPosition_.y < position_.y)
+    if(targetPosition_.y < position.y)
     {
         targetDirection_ += 180.f;
     }
@@ -128,7 +129,7 @@ void SelfSteering::draw(sf::RenderWindow& i_window)
     texture.loadFromFile("Images/Rocket.png");
 
     sprite_.setTexture(texture);
-    sprite_.setPosition(position_);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
 
     i_window.draw(sprite_);
 }
@@ -137,16 +138,16 @@ void SelfSteering::regulateDirection()
 {
     auto rotationDifference = 0.f;
     
-    rotationDifference = getRotation() - targetDirection_;
+    rotationDifference = GetRotation() - targetDirection_;
  
     //turn left or right
     
-    if(getRotation() > targetDirection_ and
-       getRotation() - targetDirection_ <= 180.f and
-       getRotation() - targetDirection_ > 0.f)
+    if(GetRotation() > targetDirection_ and
+       GetRotation() - targetDirection_ <= 180.f and
+       GetRotation() - targetDirection_ > 0.f)
     {
-        rotationDifference = getRotation() - targetDirection_;
-        if(rotationDifference < rotationSpeed_)
+        rotationDifference = GetRotation() - targetDirection_;
+        if(rotationDifference < rotationSpeed)
         {
             sprite_.setRotation(targetDirection_);
         }
@@ -156,11 +157,11 @@ void SelfSteering::regulateDirection()
         }
     }
     
-    else if(getRotation() > targetDirection_ and
-            getRotation() - targetDirection_ > 180.f)
+    else if(GetRotation() > targetDirection_ and
+            GetRotation() - targetDirection_ > 180.f)
     {
-        rotationDifference = getRotation() - targetDirection_ - 180.f;
-        if(rotationDifference < rotationSpeed_)
+        rotationDifference = GetRotation() - targetDirection_ - 180.f;
+        if(rotationDifference < rotationSpeed)
         {
             sprite_.setRotation(targetDirection_);
         }
@@ -170,12 +171,12 @@ void SelfSteering::regulateDirection()
         }
     }
     
-    else if(getRotation() < targetDirection_ and
-            getRotation() - targetDirection_ < 0.f and
-            getRotation() - targetDirection_ > -180.f)
+    else if(GetRotation() < targetDirection_ and
+            GetRotation() - targetDirection_ < 0.f and
+            GetRotation() - targetDirection_ > -180.f)
     {
-        rotationDifference = targetDirection_ - getRotation();
-        if(rotationDifference < rotationSpeed_)
+        rotationDifference = targetDirection_ - GetRotation();
+        if(rotationDifference < rotationSpeed)
         {
             sprite_.setRotation(targetDirection_);
         }
@@ -185,11 +186,11 @@ void SelfSteering::regulateDirection()
         }
     }
     
-    else if(getRotation() < targetDirection_ and
-            getRotation() - targetDirection_ < 0.f)
+    else if(GetRotation() < targetDirection_ and
+            GetRotation() - targetDirection_ < 0.f)
     {
-        rotationDifference = targetDirection_ - getRotation();
-        if(rotationDifference < rotationSpeed_)
+        rotationDifference = targetDirection_ - GetRotation();
+        if(rotationDifference < rotationSpeed)
         {
             sprite_.setRotation(targetDirection_);
         }

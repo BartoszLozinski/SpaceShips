@@ -2,21 +2,23 @@
 #ifndef CONTROLLABLE
 #define CONTROLLABLE
 
-#include "Moveable.hpp"
+#include "Sprite.hpp"
 #include <vector>
 
-class Controllable : public Moveable
+class Controllable : public Sprite
 {
 protected:
-    float acceleration_ = 0.1f;
-    float rotationSpeed_ = 3.f; //deg
-    sf::Vector2f velocity_{0.f, 0.f};
+    float rotationSpeed = 3.f; //deg
+    float acceleration = 0.2f;
+
     
 public:
+    /*
     Controllable();
-    Controllable(sf::Vector2f position);
-    Controllable(sf::Vector2f position, float rotation, float maxSpeed, float speed, float acceleration, float rotationSpeed);
-    Controllable(sf::Vector2f position, float rotation, sf::Vector2f size, float maxSpeed, float speed, float acceleration, float rotationSpeed);
+    Controllable(Game::Vector2u position);
+    Controllable(Game::Vector2u position, float rotation, float maxSpeed, float speed, float acceleration, float rotationSpeed);
+    */
+    Controllable(const Game::Vector2u& position_ = { 200, 300 }, const float rotation_ = 0.f, const Game::Vector2u& size_ = { 30, 30 }, const float maxSpeed_ = 6.0f, const float speed_ = 0.f, const float rotationSpeed_ = 3.0f);
 
     virtual ~Controllable() = default;
     

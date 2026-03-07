@@ -38,7 +38,7 @@ public:
     void organizeBullets();
     void shoot();
     void shootBack();
-    void updatePosition() override;
+    void Move() override;
     
     size_t getBullets() const;
     std::vector<std::shared_ptr<Bullet>>& getBulletManager();

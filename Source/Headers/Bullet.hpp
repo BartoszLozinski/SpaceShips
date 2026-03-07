@@ -2,18 +2,17 @@
 #ifndef BULLET
 #define BULLET
 
-#include "Moveable.hpp"
+#include "Sprite.hpp"
 #include <vector>
 
-class Bullet : public Moveable
+class Bullet : public Sprite
 {
 protected:
     size_t damage_ = 1;
 
 public:
-    Bullet(sf::Vector2f position, float rotation);
-    Bullet(sf::Vector2f position, float rotation, sf::Vector2f size, float maxSpeed, float speed);
-    
+    Bullet(const Game::Vector2u& position_ = { 200, 300 }, const float rotation_ = 0.f, const Game::Vector2u& size_ = { 30, 30 }, const float maxSpeed_ = 6.0f, const float speed_ = 0.f);
+
     virtual ~Bullet() = default;
     void draw(sf::RenderWindow& i_window) override;
 };

@@ -1,20 +1,19 @@
 #include "Headers/Spaceship.hpp"
 
 Spaceship::Spaceship()
-    : Controllable(sf::Vector2f(static_cast<float>(SCREEN_WIDTH/2), static_cast<float>(SCREEN_HEIGHT/2)),
+    : Controllable(Game::Vector2u(SCREEN_WIDTH/2, SCREEN_HEIGHT/2),
                   0.f, // rotation
-                  sf::Vector2f(40.f, 30.f), //size
+                  Game::Vector2u(40, 30), //size
                   9.f, //maxSpeed
                   0.f, //speed
-                  0.2f, //acceleration
                   3.f) //rotationalSpeed
 {
     setHP(5);
     previousInvulnerabilityTime_ = std::chrono::steady_clock::now();
     bulletManager_.reserve(bulletsQuantity_);
        
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
+    sprite_.setOrigin(size.x/2, size.y/2);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
     sprite_.setRotation(180.f);
 }
 
@@ -23,7 +22,7 @@ void Spaceship::checkBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vect
     for(auto& bullet : bulletManager_)
     {
         bullet->checkSpritesCollision(vectorOfSprites);
-        if(bullet->getHP() <= 0 and bullet->isInMap())
+        if(bullet->GetHP() <= 0 and bullet->isInMap())
         {   
             points_++;
             if(bulletsQuantity_ < (maxBulletsQuantity_ - 1))
@@ -45,7 +44,7 @@ void Spaceship::checkBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vect
 
 bool Spaceship::checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites) 
 {   
-    auto HPbeforeCollision = getHP();
+    auto HPbeforeCollision = GetHP();
     auto collisionStatus = false;
     if(Sprite::checkSpritesCollision(vectorOfSprites) and invulnerability_ == false)
     {
@@ -56,7 +55,7 @@ bool Spaceship::checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vect
     
     else if(Sprite::checkSpritesCollision(vectorOfSprites) and invulnerability_ == true)
     {
-        this-> HP_ = HPbeforeCollision;
+        this->HP = HPbeforeCollision;
         collisionStatus = true;
     }
 
@@ -76,21 +75,21 @@ void Spaceship::draw(sf::RenderWindow& i_window)
     texture.loadFromFile("Images/Spaceship.png");
 
     sprite_.setTexture(texture);
-    sprite_.setPosition(position_);
+    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
 
     i_window.draw(sprite_);
     
-    if(speed_ > 0)
+    if(speed > 0)
     {
         sf::Sprite light;
         sf::Texture engineTexture;
         engineTexture.loadFromFile("Images/EngineLight.png");
         light.setOrigin(7.5f, 26.f);
         light.setTexture(engineTexture);
-        light.setRotation(getRotation());
+        light.setRotation(GetRotation());
         //light.setPosition(sf::Vector2f(position_.x, position_.y - cos(getRotation() * M_PI / 180) * 15));
-        light.setPosition(sf::Vector2f(position_.x, position_.y));
-        light.setTextureRect(sf::IntRect(15 * std::floor(static_cast<int>(speed_)/3), 0, 15, 15));
+        light.setPosition(sf::Vector2f{ static_cast<float>(position.x), static_cast<float>(position.y) });
+        light.setTextureRect(sf::IntRect(15 * std::floor(static_cast<int>(speed)/3), 0, 15, 15));
         i_window.draw(light);
     }
 
@@ -104,7 +103,7 @@ void Spaceship::organizeBullets()
 {   
     for(auto& bullet : bulletManager_)
     {
-        if(bullet->getHP() <= 0)
+        if(bullet->GetHP() <= 0)
         {
             bullet = nullptr;
         }
@@ -121,21 +120,20 @@ void Spaceship::organizeBullets()
 
 void Spaceship::reset()
 {
-    HP_ = 5;
-    position_ = sf::Vector2f(static_cast<float>(SCREEN_WIDTH/2), static_cast<float>(SCREEN_HEIGHT/2));
+    HP = 5;
+    position = Game::Vector2u(static_cast<float>(SCREEN_WIDTH/2), static_cast<float>(SCREEN_HEIGHT/2));
     bulletsQuantity_ = 20;
     points_ = 0;
-    speed_ = 0.f;
+    speed = 0.f;
     sprite_.setRotation(180.f);
 }
 
 void Spaceship::shoot()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) and
-       shootAbility_ and
-       bulletsQuantity_ > 0)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) &&
+       shootAbility_ && bulletsQuantity_ > 0)
     {
-        bulletManager_.push_back(std::make_shared<Bullet>(position_, Spaceship::getRotation()));
+        bulletManager_.push_back(std::make_shared<Bullet>(position, Spaceship::GetRotation()));
         previousShootTime_ = std::chrono::steady_clock::now();
         bulletsQuantity_--;
         shootAbility_ = false;
@@ -156,13 +154,13 @@ void Spaceship::shootBack()
        shootAbility_ and
        bulletsQuantity_ > 2)
     {   
-        std::array<float, 3> rotation = {Spaceship::getRotation() - 180.f - 45.f,
-                                         Spaceship::getRotation() - 180.f,
-                                         Spaceship::getRotation() - 180.f + 45.f};
+        std::array<float, 3> rotation = {Spaceship::GetRotation() - 180.f - 45.f,
+                                         Spaceship::GetRotation() - 180.f,
+                                         Spaceship::GetRotation() - 180.f + 45.f};
 
         for(auto& value : rotation)
         {   
-            bulletManager_.push_back(std::make_shared<Bullet>(position_, value));
+            bulletManager_.push_back(std::make_shared<Bullet>(position, value));
         }
         previousShootTime_ = std::chrono::steady_clock::now();
         bulletsQuantity_ -= 3;
@@ -177,13 +175,13 @@ void Spaceship::shootBack()
     }
 }
 
-void Spaceship::updatePosition()
+void Spaceship::Move()
 {
-    Moveable::updatePosition();
+    Sprite::Move();
 
     for(auto& bullet : bulletManager_)
     {
-        bullet->updatePosition();
+        bullet->Move();
         if(!bullet->isInMap())
         {
             bullet->setHP(0);
