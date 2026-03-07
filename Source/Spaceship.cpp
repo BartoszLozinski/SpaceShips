@@ -125,7 +125,8 @@ void Spaceship::reset()
     bulletsQuantity_ = 20;
     points_ = 0;
     speed = 0.f;
-    sprite_.setRotation(180.f);
+    rotation = 180.f;
+    sprite_.setRotation(rotation);
 }
 
 void Spaceship::shoot()
@@ -134,7 +135,7 @@ void Spaceship::shoot()
        shootAbility_ && bulletsQuantity_ > 0)
     {
         bulletManager_.push_back(std::make_shared<Bullet>(position, Spaceship::GetRotation()));
-        bulletManager_.back()->setSpeed(8.f);
+        bulletManager_.back()->setSpeed(11.f);
         previousShootTime_ = std::chrono::steady_clock::now();
         bulletsQuantity_--;
         shootAbility_ = false;

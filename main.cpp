@@ -120,10 +120,6 @@ int main()
        
         spaceship.checkSpritesCollision(enemiesManager.getManager());
 
-        std::cout << std::format("Spaceship position: {}, {}\n", spaceship.GetPosition().x, spaceship.GetPosition().y);
-        std::cout << std::format("Spaceship velocity: {}, {}\n", spaceship.GetVelocity().x, spaceship.GetVelocity().y);
-        std::cout << std::format("Is spaceship in map: {}\n", spaceship.isInMap());
-
         if(!spaceship.isInMap())
         {
             --spaceship;
