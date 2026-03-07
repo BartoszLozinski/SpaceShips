@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <tuple>
-import <vector>;
+#include <vector>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

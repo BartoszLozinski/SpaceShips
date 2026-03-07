@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.28)
 project(SpaceShips)
 
-set(CXX_STANDARD_REQUIRED 20)
 set(CMAKE_CXX_COMPILER clang++-18)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(FLAGS -Werror -Wall -Wpedantic -Wextra -fmodules -Wno-experimental-header-units)
+set(FLAGS -Werror -Wall -Wpedantic -Wextra)
 
 find_package(GTest REQUIRED)
 set(GMOCK_LIBRARIES /usr/lib/libgmock.a /usr/lib/libgmock_main.a)
@@ -24,8 +23,6 @@ set(SRC         Source/Sprite.cpp
                 Source/Button.cpp
                 Source/Menu.cpp)
 
-set(PRECOMPILED_STL     -fmodule-file=../../Modules/vector.pcm
-                        )
 
 add_library(${PROJECT_NAME}-lib STATIC  ${SRC})
 
@@ -42,9 +39,17 @@ target_link_libraries(TESTRUNNER PRIVATE    ${GTEST_LIBRARIES}
                                             pthread)
 
 
-target_compile_options(${PROJECT_NAME}-lib PRIVATE ${FLAGS} ${PRECOMPILED_STL})
-target_compile_options(${PROJECT_NAME} PRIVATE ${FLAGS} ${PRECOMPILED_STL})
-target_compile_options(TESTRUNNER   PRIVATE ${FLAGS} ${PRECOMPILED_STL})
+target_compile_options(${PROJECT_NAME}-lib PRIVATE  ${FLAGS}
+                                                    $<$<CONFIG:DEBUG>:-Og -g>
+                                                    $<$<CONFIG:RELEASE>:-O3>)
+
+target_compile_options(${PROJECT_NAME} PRIVATE      ${FLAGS} 
+                                                    $<$<CONFIG:DEBUG>:-Og -g>
+                                                    $<$<CONFIG:RELEASE>:-O3>)
+                                                    
+target_compile_options(TESTRUNNER   PRIVATE         ${FLAGS}
+                                                    $<$<CONFIG:DEBUG>:-Og -g>
+                                                    $<$<CONFIG:RELEASE>:-O3>)
 
 set_target_properties(${PROJECT_NAME}-lib   PROPERTIES
                                             CXX_STANDARD 20

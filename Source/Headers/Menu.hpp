@@ -7,7 +7,7 @@
 #include <array>
 #include <chrono>
 #include <thread>
-import <vector>;
+#include <vector>
 #include "Button.hpp"
 
 using Time = std::chrono::time_point<std::chrono::steady_clock>;

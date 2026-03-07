@@ -3,7 +3,7 @@
 #define BULLET
 
 #include "Moveable.hpp"
-import <vector>;
+#include <vector>
 
 class Bullet : public Moveable
 {

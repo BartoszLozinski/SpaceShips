@@ -8,7 +8,7 @@
 #include "Spaceship.hpp"
 
 #include <chrono>
-import <vector>;
+#include <vector>
 #include <memory>
 #include <random>
 #include <thread>

@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-import <vector>;
+#include <vector>
 
 class Button
 {

@@ -1,7 +1,7 @@
 #include <chrono>
 #include <thread>
 #include <string>
-import <vector>;
+#include <vector>
 
 #include "Source/Headers/Sprite.hpp"
 #include "Source/Headers/Moveable.hpp"

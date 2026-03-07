@@ -9,7 +9,7 @@
 #include <chrono>
 #include <thread>
 #include <memory>
-import <vector>;
+#include <vector>
 #include <random>
 
 class Spaceship : public Controllable
