@@ -40,11 +40,10 @@ struct SelfSteeringMockFixture : public testing::TestWithParam<std::tuple<Game::
 TEST(BulletsTest, killingTest)
 {
     Spaceship ship1;
-    ship1.getBulletManager().push_back(std::make_shared<Bullet>(Game::Vector2u(200, 500), 0));
+    ship1.getBulletManager().push_back(std::make_shared<Bullet>(Game::Vector2u(-10, 500), 0));
     ship1.getBulletManager().push_back(std::make_shared<Bullet>(Game::Vector2u(200, 500), 0));
     ship1.getBulletManager().push_back(std::make_shared<Bullet>(Game::Vector2u(200, 500), 0));
 
-    ship1.getBulletManager()[1]->setPosition(Game::Vector2f(-10.f, 500.f));
     ship1.Move();
     ship1.organizeBullets();
 
@@ -55,13 +54,7 @@ TEST(SpriteCollision, positiveTest1)
 {   
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(200, 200));
     std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(215, 210));
-    
-    //Window required for proper collision checking
-    //worked without it with rectangleShape, but not with sprites
-    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "TEST");
-    sprite1->draw(window);
-    sprite2->draw(window);
-    
+        
     ASSERT_TRUE(sprite1->CheckCollision(*sprite2));
 }
 
@@ -69,10 +62,6 @@ TEST(SpriteCollision, positiveTest2)
 {
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(200, 200));
     std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(230, 230));
-    
-    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "TEST");
-    sprite1->draw(window);
-    sprite2->draw(window);
 
     ASSERT_TRUE(sprite1->CheckCollision(*sprite2));
 }
@@ -82,10 +71,6 @@ TEST(SpriteCollision, negativeTest1)
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(200, 200));
     std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(235, 229));
 
-    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "TEST");
-    sprite1->draw(window);
-    sprite2->draw(window);
-
     ASSERT_FALSE(sprite1->CheckCollision(*sprite2));
 }
 
@@ -94,10 +79,6 @@ TEST(SpriteCollision, negativeTest2)
 {
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(170, 170));
     std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(201, 201));
-
-    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "TEST");
-    sprite1->draw(window);
-    sprite2->draw(window);
 
     ASSERT_FALSE(sprite1->CheckCollision(*sprite2));
 }

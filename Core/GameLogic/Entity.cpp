@@ -44,6 +44,8 @@ namespace Game
 
     void Entity::Move()
     {
+        velocity.x = -speed * std::sin(rotation);
+        velocity.y = speed * std::cos(rotation);
         position += velocity;
     }
 

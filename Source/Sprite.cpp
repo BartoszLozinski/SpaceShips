@@ -36,17 +36,6 @@ void Sprite::draw(sf::RenderWindow& i_window)
     i_window.draw(sprite_);
 }
 
-void Sprite::Move()
-{
-    float angle = sprite_.getRotation() * M_PI / 180; // deg to radians
-    using namespace std;
-    {
-    velocity.x = round(-speed * sin(angle));
-    velocity.y = round(speed * cos(angle));
-    }
-    position += velocity;    
-}
-
 /*____________________GETTERS___________________________*/
 
 size_t Sprite::getCounter() const
@@ -66,26 +55,7 @@ void Sprite::increaseCounter()
     counter_++;
 }
 
-void Sprite::setPosition(Game::Vector2f const newPos)
-{
-    position = newPos;
-}
-
 void Sprite::setRotation(float const rotation)
 {
     sprite_.setRotation(rotation);
 }
-
-/*______________________OPERATORS_______________________*/
-
-Sprite& Sprite::operator--()
-{
-    HP--;
-    return *this;
-}
-
-bool Sprite::operator==(const Sprite& other) const
-{
-    return position == other.position;
-}
-

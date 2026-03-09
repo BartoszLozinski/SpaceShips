@@ -26,13 +26,7 @@ public:
     sf::Sprite getSprite() const;
     
     void increaseCounter();
-    void setPosition(Game::Vector2f const newPos);
     void setRotation(float const rotation);
-
-    void Move() override;
-
-    Sprite& operator--();
-    bool operator==(const Sprite& other) const;
 };
 #endif
 
