@@ -1,4 +1,5 @@
 #include "Entity.hpp"
+#include "GameConfig.hpp"
 
 #include <cmath>
 
@@ -27,6 +28,19 @@ namespace Game
     Vector2u Entity::GetSize() const { return size; }
     float Entity::GetSpeed() const  { return speed; }
     Vector2f Entity::GetVelocity() const { return velocity; }
+
+    bool Entity::IsInMap() const
+    {
+        if(position.x >= 0 && position.x <= Game::Config::ScreenWidth &&
+           position.y >= 0 && position.y <= Game::Config::ScreenHeight)
+        {   
+            return true;
+        }
+        else
+        {   
+            return false;
+        }
+    }
 
     void Entity::Move()
     {

@@ -1,7 +1,8 @@
 #include "Headers/Spaceship.hpp"
+#include "../Core/GameLogic/GameConfig.hpp"
 
 Spaceship::Spaceship()
-    : Controllable(Game::Vector2f(static_cast<float>(SCREEN_WIDTH)/2, static_cast<float>(SCREEN_HEIGHT)/2),
+    : Controllable(Game::Vector2f(static_cast<float>(Game::Config::ScreenWidth)/2, static_cast<float>(Game::Config::ScreenHeight)/2),
                   180.f, // rotation
                   Game::Vector2u(40, 30), //size
                   9.f, //maxSpeed
@@ -22,7 +23,7 @@ void Spaceship::checkBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vect
     for(auto& bullet : bulletManager_)
     {
         bullet->checkSpritesCollision(vectorOfSprites);
-        if(bullet->GetHP() <= 0 and bullet->isInMap())
+        if(bullet->GetHP() <= 0 and bullet->IsInMap())
         {   
             points_++;
             if(bulletsQuantity_ < (maxBulletsQuantity_ - 1))
@@ -124,7 +125,7 @@ void Spaceship::organizeBullets()
 void Spaceship::reset()
 {
     HP = 5;
-    position = Game::Vector2f(static_cast<float>(SCREEN_WIDTH/2), static_cast<float>(SCREEN_HEIGHT/2));
+    position = Game::Vector2f(static_cast<float>(Game::Config::ScreenWidth / 2), static_cast<float>(Game::Config::ScreenHeight / 2));
     bulletsQuantity_ = 20;
     points_ = 0;
     speed = 0.f;
@@ -187,7 +188,7 @@ void Spaceship::Move()
     for(auto& bullet : bulletManager_)
     {
         bullet->Move();
-        if(!bullet->isInMap())
+        if(!bullet->IsInMap())
         {
             bullet->setHP(0);
         }

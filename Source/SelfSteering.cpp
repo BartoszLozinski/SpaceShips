@@ -1,5 +1,7 @@
 #include "Headers/SelfSteering.hpp"
 
+#include "../Core/GameLogic/GameConfig.hpp"
+
 SelfSteering::SelfSteering()
     : Controllable()
 {   
@@ -201,7 +203,7 @@ int SelfSteering::getRandom()
 {
     std::random_device randDev;
     std::mt19937 randGenerator(randDev());
-    std::uniform_int_distribution<int> distribution(200, SCREEN_WIDTH - 200);
+    std::uniform_int_distribution<int> distribution(200, Game::Config::ScreenWidth - 200);
     return distribution(randGenerator);
 }
 

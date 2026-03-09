@@ -11,6 +11,7 @@
 #include "Source/Headers/SelfSteering.hpp"
 #include "Source/Headers/Button.hpp"
 #include "Source/Headers/Menu.hpp"
+#include "GameConfig.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Font.hpp>
@@ -22,7 +23,7 @@ size_t LVL = 1;
 
 int main()
 {   
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SpaceShips");
+    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "SpaceShips");
     
     Spaceship spaceship;
 
@@ -120,7 +121,7 @@ int main()
        
         spaceship.checkSpritesCollision(enemiesManager.getManager());
 
-        if(!spaceship.isInMap())
+        if(!spaceship.IsInMap())
         {
             --spaceship;
         }
@@ -132,7 +133,7 @@ int main()
             LOOSE_TEXT.setFont(font);
             LOOSE_TEXT.setFillColor(sf::Color::Red);
             LOOSE_TEXT.setCharacterSize(200);
-            LOOSE_TEXT.setPosition(sf::Vector2f(200, SCREEN_HEIGHT/2 - 100));
+            LOOSE_TEXT.setPosition(sf::Vector2f(200, Game::Config::ScreenHeight / 2 - 100));
             LOOSE_TEXT.setStyle(sf::Text::Bold);
             LOOSE_TEXT.setString("YOU LOST!");
             window.draw(LOOSE_TEXT);

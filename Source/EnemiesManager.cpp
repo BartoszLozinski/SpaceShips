@@ -1,5 +1,7 @@
 #include "Headers/EnemiesManager.hpp"
 
+#include "../Core/GameLogic/GameConfig.hpp"
+
 EnemiesManager::EnemiesManager()
 {
     manager_.reserve(maxEnemies);
@@ -22,7 +24,7 @@ void EnemiesManager::addMoveable(const size_t level)
 void EnemiesManager::addSelfSteering()
 {
     manager_.push_back(std::make_shared<SelfSteering>(Game::Vector2f(static_cast<float>(getRandom()),
-                                                        static_cast<float>(SCREEN_HEIGHT) -1.f )));
+                                                        static_cast<float>(Game::Config::ScreenHeight) -1.f )));
 }
 
 void EnemiesManager::clearEnemies()
@@ -31,8 +33,8 @@ void EnemiesManager::clearEnemies()
     for(auto& sprite : manager_)
     {
         if(sprite->GetPosition().x < 0 or
-           sprite->GetPosition().x > SCREEN_WIDTH or
-           sprite->GetPosition().y > SCREEN_HEIGHT)
+           sprite->GetPosition().x > Game::Config::ScreenWidth ||
+           sprite->GetPosition().y > Game::Config::ScreenHeight)
         {
             sprite->setHP(0);
         }  
@@ -110,7 +112,7 @@ int EnemiesManager::getRandom()
 {
     std::random_device randDev;
     std::mt19937 randGenerator(randDev());
-    std::uniform_int_distribution<int> distribution(50, SCREEN_WIDTH - 50);
+    std::uniform_int_distribution<int> distribution(50, Game::Config::ScreenWidth - 50);
     return distribution(randGenerator);
 }
 

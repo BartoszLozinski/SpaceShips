@@ -36,20 +36,6 @@ void Sprite::draw(sf::RenderWindow& i_window)
     i_window.draw(sprite_);
 }
 
-bool Sprite::isInMap()
-{
-    //checking if the center of the sprite is inside the map
-    if(position.x >= 0 && position.x <= SCREEN_WIDTH &&
-       position.y >= 0 && position.y <= SCREEN_HEIGHT)
-    {   
-        return true;
-    }
-    else
-    {   
-        return false;
-    }
-}
-
 void Sprite::Move()
 {
     float angle = sprite_.getRotation() * M_PI / 180; // deg to radians

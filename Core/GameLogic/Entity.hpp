@@ -2,7 +2,6 @@
 
 #include "Vector2t.hpp"
 
-
 namespace Game
 {
     class Entity
@@ -30,6 +29,8 @@ namespace Game
         [[nodiscard]] Vector2u GetSize() const;
         [[nodiscard]] float GetSpeed() const;
         [[nodiscard]] Vector2f GetVelocity() const;
+
+        [[nodiscard]] bool IsInMap() const;
 
         Entity& operator--();
         bool operator==(const Entity& other) const;

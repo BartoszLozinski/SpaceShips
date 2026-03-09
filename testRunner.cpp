@@ -11,7 +11,7 @@
 #include "Source/Headers/Bullet.hpp"
 #include "Source/Headers/Spaceship.hpp"
 #include "Source/Headers/SelfSteering.hpp"
-
+#include "Core/GameLogic/GameConfig.hpp"
 
 class SelfSteeringFixture : public testing::TestWithParam<std::tuple<Game::Vector2u,float>>
 {
@@ -58,7 +58,7 @@ TEST(SpriteCollision, positiveTest1)
     
     //Window required for proper collision checking
     //worked without it with rectangleShape, but not with sprites
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "TEST");
+    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "TEST");
     sprite1->draw(window);
     sprite2->draw(window);
     
@@ -70,7 +70,7 @@ TEST(SpriteCollision, positiveTest2)
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(200, 200));
     std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(230, 230));
     
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "TEST");
+    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "TEST");
     sprite1->draw(window);
     sprite2->draw(window);
 
@@ -82,7 +82,7 @@ TEST(SpriteCollision, negativeTest1)
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(200, 200));
     std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(235, 229));
 
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "TEST");
+    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "TEST");
     sprite1->draw(window);
     sprite2->draw(window);
 
@@ -95,7 +95,7 @@ TEST(SpriteCollision, negativeTest2)
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(170, 170));
     std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(201, 201));
 
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "TEST");
+    sf::RenderWindow window(sf::VideoMode(Game::Config::ScreenWidth, Game::Config::ScreenHeight), "TEST");
     sprite1->draw(window);
     sprite2->draw(window);
 

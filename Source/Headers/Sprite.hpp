@@ -3,7 +3,7 @@
 #define SPRITE
 
 #include <memory>
-#include "Global.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #include "../../Core/GameLogic/Entity.hpp"
@@ -22,8 +22,6 @@ public:
     virtual bool checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites);
     virtual void draw(sf::RenderWindow& i_window);
 
-    bool isInMap(); 
-    
     size_t getCounter() const;
     sf::Sprite getSprite() const;
     
@@ -34,7 +32,6 @@ public:
     void setRotation(float const rotation);
 
     void Move() override;
-
 
     Sprite& operator--();
     bool operator==(const Sprite& other) const;
