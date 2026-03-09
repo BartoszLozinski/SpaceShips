@@ -2,29 +2,9 @@
 
 #include "../Core/GameLogic/GameConfig.hpp"
 
-SelfSteering::SelfSteering()
-    : Controllable()
-{   
-    setSize(Game::Vector2u(15, 30));
-    sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ position.x, position.y });
-    rotation = 180.f;
-    sprite_.setRotation(rotation);
-    speed = 11.f;
-    rotationSpeed = 5.f;
-}
-
 SelfSteering::SelfSteering(const Game::Vector2f& position)
-    : Controllable(position)
-{   
-    setSize(Game::Vector2u(15, 30));
-    sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ position.x, position.y });
-    rotation = 180.f;
-    sprite_.setRotation(rotation);
-    speed = 11.f;
-    rotationSpeed = 5.f;
-}
+    : Controllable(position, 180.f, { 15, 30 }, 11.f, 11.f, 5.f)
+{}
 
 void SelfSteering::aimWithoutCollision(const Sprite& target, const std::vector<std::shared_ptr<Sprite>> obstacles)
 {   

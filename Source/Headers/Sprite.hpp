@@ -26,9 +26,7 @@ public:
     sf::Sprite getSprite() const;
     
     void increaseCounter();
-    void setHP(int const hp);   
     void setPosition(Game::Vector2f const newPos);
-    void setSize(Game::Vector2u const size);
     void setRotation(float const rotation);
 
     void Move() override;

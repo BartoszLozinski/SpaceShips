@@ -35,6 +35,7 @@ namespace Game
         Entity& operator--();
         bool operator==(const Entity& other) const;
 
+        void SetHP(const int hp);
         void SetSpeed(const float speed_);
         
         virtual void Move();

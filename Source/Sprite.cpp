@@ -71,19 +71,9 @@ void Sprite::setPosition(Game::Vector2f const newPos)
     position = newPos;
 }
 
-void Sprite::setHP(int const hp)
-{
-    HP = hp;
-}
-
 void Sprite::setRotation(float const rotation)
 {
     sprite_.setRotation(rotation);
-}
-
-void Sprite::setSize(Game::Vector2u const size)
-{
-    this->size = size;
 }
 
 /*______________________OPERATORS_______________________*/

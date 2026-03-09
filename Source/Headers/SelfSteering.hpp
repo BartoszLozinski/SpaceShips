@@ -19,7 +19,6 @@ protected:
     float targetDirection_ = 180.f;
     float warningDistance_ = 200.f;
 public:
-    SelfSteering();
     SelfSteering(const Game::Vector2f& position_);
     virtual ~SelfSteering() = default;
     
