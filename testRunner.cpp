@@ -12,7 +12,7 @@
 #include "Source/Headers/Spaceship.hpp"
 #include "Source/Headers/SelfSteering.hpp"
 
-/*
+
 class SelfSteeringFixture : public testing::TestWithParam<std::tuple<Game::Vector2u,float>>
 {
 public:
@@ -68,7 +68,7 @@ TEST(SpriteCollision, positiveTest1)
 TEST(SpriteCollision, positiveTest2)
 {
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(200, 200));
-    std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(229, 229));
+    std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(230, 230));
     
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "TEST");
     sprite1->draw(window);
@@ -93,7 +93,7 @@ TEST(SpriteCollision, negativeTest1)
 TEST(SpriteCollision, negativeTest2)
 {
     std::shared_ptr<Sprite> sprite1 = std::make_shared<Sprite>(Game::Vector2u(170, 170));
-    std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(200, 200));
+    std::shared_ptr<Sprite> sprite2 = std::make_shared<Sprite>(Game::Vector2u(201, 201));
 
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "TEST");
     sprite1->draw(window);
@@ -133,7 +133,7 @@ INSTANTIATE_TEST_SUITE_P(RotationEQ, SelfSteeringFixture, testing::Values(
     std::make_tuple(Game::Vector2u(300, 400), 175),
     std::make_tuple(Game::Vector2u(500, 200), 180)));
 
-*/
+
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);

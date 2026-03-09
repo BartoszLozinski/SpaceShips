@@ -41,7 +41,6 @@ void SelfSteering::aimWithoutCollision(const Sprite& target, const std::vector<s
 
         if(distance < warningDistance_)
         {
-            std::cout << "Warning!!!\n";
             auto predictedDistance = pow(
                         pow((obstacle->GetPosition().x + obstacle->GetVelocity().x
                         - position.x - velocity.x),2) + 
@@ -77,14 +76,9 @@ void SelfSteering::aimWithoutCollision(const Sprite& target, const std::vector<s
                                     ,0.5);
                 
                 if(predictedLeft < predictedRight)
-                {
                     turnRight();
-                }
                 else
-                {
                     turnLeft();
-                }
-                std::cout << "Collision probable!!!!!!\n";
             }
         }
     }
