@@ -4,30 +4,13 @@
 
 namespace Game
 {
-    Entity::Entity(const Vector2f& position_, const float rotation_, const Vector2u& size_)
+    Entity::Entity(const Vector2f& position_, const float rotation_, const Vector2u& size_, const float maxSpeed_, const float speed_)
         : position(position_)
         , rotation(rotation_)
         , size(size_)
+        , maxSpeed(maxSpeed_)
+        , speed(speed_)
     {};
-
-    /*
-
-    Entity::Entity(const Vector2u& position_, const float rotation_, const Vector2u& size_)
-        : position(position_)
-        , rotation(rotation_)
-        , size(size_)
-    {};
-    
-    Entity::Entity(const Vector2u& position_, const float rotation_)
-        : position(position_)
-        , rotation(rotation_)
-    {};
-    
-    Entity::Entity(const Vector2u& position_)
-        : position(position_)
-    {};
-
-    */
 
     bool Entity::CheckCollision(const Entity& other) const
     {
@@ -42,6 +25,7 @@ namespace Game
     Vector2f Entity::GetPosition() const { return position; }
     float Entity::GetRotation() const { return rotation; }
     Vector2u Entity::GetSize() const { return size; }
+    float Entity::GetSpeed() const  { return speed; }
     Vector2f Entity::GetVelocity() const { return velocity; }
 
     void Entity::Move()
@@ -60,5 +44,6 @@ namespace Game
         return position == other.position;
     }
 
+    void Entity::SetSpeed(const float speed_) { speed = speed_; }
 
 };

@@ -2,46 +2,12 @@
 #include <cmath>
 
 Sprite::Sprite(const Game::Vector2f& position_, const float rotation_, const Game::Vector2u& size_, const float maxSpeed_, const float speed_)
-    : Game::Entity(position_, rotation_, size_)
-    , maxSpeed(maxSpeed_)
-    , speed(speed_)
+    : Game::Entity(position_, rotation_, size_, maxSpeed_, speed_)
 {
     sprite_.setOrigin(size.x/2, size.y/2);
     sprite_.setPosition({ position_.x, position_.y });
     sprite_.setRotation(rotation);
 }
-
-/*
-Sprite::Sprite(Game::Vector2u position, float rotation, Game::Vector2u size)
-    : Sprite(position, rotation, size)
-{   
-    sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
-    sprite_.setRotation(rotation);
-}
-
-Sprite::Sprite(Game::Vector2u position, float rotation)
-    : Entity(position, rotation)
-{
-    sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
-    sprite_.setRotation(rotation);
-}
-
-Sprite::Sprite()
-    : Entity()
-{
-    sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
-}
-
-Sprite::Sprite(Game::Vector2u position)
-    : Entity(position)
-{
-    sprite_.setOrigin(size.x/2, size.y/2);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
-}
-*/
 
 bool Sprite::checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites)
 {   
@@ -107,11 +73,6 @@ sf::Sprite Sprite::getSprite() const
     return this->sprite_;
 }
 
-float Sprite::getSpeed() const
-{
-    return this->speed;
-}
-
 /*__________________SETTERS___________________________*/
 
 void Sprite::increaseCounter()
@@ -137,11 +98,6 @@ void Sprite::setRotation(float const rotation)
 void Sprite::setSize(Game::Vector2u const size)
 {
     this->size = size;
-}
-
-void Sprite::setSpeed(float newSpeed)
-{
-    speed = newSpeed;
 }
 
 /*______________________OPERATORS_______________________*/

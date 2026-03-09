@@ -13,16 +13,8 @@ class Sprite : public Game::Entity
 protected:
     sf::Sprite sprite_;
     size_t counter_ = 0;
-    float maxSpeed = 6.f;
-    float speed = 0.f;
 
 public:
-    /*
-    Sprite();
-    Sprite(Game::Vector2u position);
-    Sprite(Game::Vector2u position, float rotation);
-    Sprite(Game::Vector2u position, float rotation, Game::Vector2u size);
-    */
     Sprite(const Game::Vector2f& position_ = { 200.f, 300.f }, const float rotation_ = 0.f, const Game::Vector2u& size_ = { 30, 30 }, const float maxSpeed_ = 6.0f, const float speed_ = 0.f);
 
     virtual ~Sprite() = default;
@@ -43,8 +35,6 @@ public:
 
     void Move() override;
 
-    float getSpeed() const;
-    void setSpeed(float newSpeed);
 
     Sprite& operator--();
     bool operator==(const Sprite& other) const;

@@ -138,7 +138,7 @@ void Spaceship::shoot()
        shootAbility_ && bulletsQuantity_ > 0)
     {
         bulletManager_.push_back(std::make_shared<Bullet>(position, Spaceship::GetRotation()));
-        bulletManager_.back()->setSpeed(11.f);
+        bulletManager_.back()->SetSpeed(11.f);
         previousShootTime_ = std::chrono::steady_clock::now();
         bulletsQuantity_--;
         shootAbility_ = false;
