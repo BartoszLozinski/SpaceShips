@@ -36,7 +36,7 @@ void EnemiesManager::clearEnemies()
            sprite->GetPosition().x > Game::Config::ScreenWidth ||
            sprite->GetPosition().y > Game::Config::ScreenHeight)
         {
-            sprite->SetHP(0);
+            sprite->Kill();
         }  
     }
     auto it = std::remove_if(manager_.begin(), manager_.end(), [&](const auto& sprite)

@@ -60,7 +60,7 @@ namespace Game
         return position == other.position;
     }
 
-    void Entity::SetHP(const int hp) { HP = hp; }
+    void Entity::Kill() { HP = 0; }
     void Entity::SetSpeed(const float speed_) { speed = speed_; }
 
 };
