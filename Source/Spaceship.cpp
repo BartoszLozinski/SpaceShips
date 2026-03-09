@@ -28,10 +28,13 @@ void Spaceship::checkBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vect
             if(bulletsQuantity_ < (maxBulletsQuantity_ - 1))
             {
                 bulletsQuantity_ += 1;
-                if(getRandom() == 4)
+                if(getRandom() == 1)
                 {
-                    //20% chance for bonus bullet
-                    bulletsQuantity_ += 1;
+                    //50% chance for bonus bullets
+                    bulletsQuantity_ += 2;
+                    
+                    if (bulletsQuantity_ > maxBulletsQuantity_)
+                        bulletsQuantity_ = maxBulletsQuantity_;
                 }
             }
             else if(bulletsQuantity_ == (maxBulletsQuantity_ - 1))

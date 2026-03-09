@@ -6,7 +6,8 @@ SelfSteering::SelfSteering()
     setSize(Game::Vector2u(15, 30));
     sprite_.setOrigin(size.x/2, size.y/2);
     sprite_.setPosition({ position.x, position.y });
-    sprite_.setRotation(180.f);
+    rotation = 180.f;
+    sprite_.setRotation(rotation);
     speed = 11.f;
     rotationSpeed = 5.f;
 }
@@ -17,7 +18,8 @@ SelfSteering::SelfSteering(const Game::Vector2f& position)
     setSize(Game::Vector2u(15, 30));
     sprite_.setOrigin(size.x/2, size.y/2);
     sprite_.setPosition({ position.x, position.y });
-    sprite_.setRotation(180.f);
+    rotation = 180.f;
+    sprite_.setRotation(rotation);
     speed = 11.f;
     rotationSpeed = 5.f;
 }
@@ -129,7 +131,7 @@ void SelfSteering::draw(sf::RenderWindow& i_window)
     texture.loadFromFile("Images/Rocket.png");
 
     sprite_.setTexture(texture);
-    sprite_.setPosition({ static_cast<float>(position.x), static_cast<float>(position.y) });
+    sprite_.setPosition({ position.x, position.y });
 
     i_window.draw(sprite_);
 }
