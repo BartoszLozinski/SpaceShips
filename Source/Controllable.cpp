@@ -5,33 +5,6 @@ Controllable::Controllable(const Game::Vector2f& position_, const float rotation
     , rotationSpeed(rotationSpeed_)
 {}
 
-/*
-Controllable::Controllable(Game::Vector2u position, float rotation, float maxSpeed, float speed, float acceleration, float rotationSpeed)
-    : Sprite(position, rotation, maxSpeed, speed)
-    , acceleration_(acceleration)
-    , rotationSpeed_(rotationSpeed)
-{
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
-    sprite_.setRotation(rotation);
-}
-
-Controllable::Controllable()
-{
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
-    sprite_.setRotation(0.f);
-}
-
-Controllable::Controllable(Game::Vector2u position)
-    : Moveable(position)
-{
-    sprite_.setOrigin(size_.x/2, size_.y/2);
-    sprite_.setPosition(position_);
-    sprite_.setRotation(0.f);
-}
-*/
-
 void Controllable::accelerate()
 {
     //speed up

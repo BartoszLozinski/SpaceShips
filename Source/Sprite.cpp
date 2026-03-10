@@ -9,20 +9,7 @@ Sprite::Sprite(const Game::Vector2f& position_, const float rotation_, const Gam
     sprite_.setRotation(rotation);
 }
 
-bool Sprite::checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites)
-{   
-    bool CollisionStatus = false;
-    for(auto& sprite : vectorOfSprites)
-    {   
-        if(CheckCollision(*sprite))
-        {
-            HP--;
-            --*sprite;
-            CollisionStatus = true;
-        }
-    }
-    return CollisionStatus;
-}
+
 
 void Sprite::draw(sf::RenderWindow& i_window)
 {

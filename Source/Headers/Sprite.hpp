@@ -19,7 +19,6 @@ public:
 
     virtual ~Sprite() = default;
     
-    virtual bool checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites);
     virtual void draw(sf::RenderWindow& i_window);
 
     size_t getCounter() const;
