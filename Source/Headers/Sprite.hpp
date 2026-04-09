@@ -21,11 +21,14 @@ public:
     
     virtual void draw(sf::RenderWindow& i_window);
 
-    size_t getCounter() const;
+    size_t getCounter() const override;
     sf::Sprite getSprite() const;
     
     void increaseCounter();
     void setRotation(float const rotation);
+
+    bool Hit(std::vector<Game::Entity>& others);
+    bool Hit(std::vector<std::shared_ptr<Sprite>>& others);
 };
 #endif
 

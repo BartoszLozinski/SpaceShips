@@ -58,6 +58,15 @@ namespace Game
         return result;
     }
 
+    bool Entity::Hit(std::vector<Entity>& others)
+    {
+        bool result = false;
+        for (auto& other : others)
+            result |= Hit(other);
+
+        return result;
+    }
+
     bool Entity::IsInMap() const
     {
         if(position.x >= 0 && position.x <= Game::Config::ScreenWidth &&

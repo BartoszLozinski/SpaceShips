@@ -23,6 +23,24 @@ void Sprite::draw(sf::RenderWindow& i_window)
     i_window.draw(sprite_);
 }
 
+bool Sprite::Hit(std::vector<Game::Entity>& others)
+{
+    bool result = false;
+    for (auto& other : others)
+        result |= Game::Entity::Hit(other);
+
+    return result;
+}
+
+bool Sprite::Hit(std::vector<std::shared_ptr<Sprite>>& others)
+{
+    bool result = false;
+    for (auto& other : others)
+        result |= Game::Entity::Hit(std::static_pointer_cast<Game::Entity>(other));
+
+    return result;
+}
+
 /*____________________GETTERS___________________________*/
 
 size_t Sprite::getCounter() const

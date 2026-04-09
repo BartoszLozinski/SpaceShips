@@ -27,7 +27,7 @@ namespace Game
         [[nodiscard]] bool Hit(Entity& other);
         [[nodiscard]] bool Hit(std::shared_ptr<Entity> other);
         bool Hit(std::vector<std::shared_ptr<Entity>>& others);
-
+        bool Hit(std::vector<Entity>& others);
 
         [[nodiscard]] int GetHP() const;
         [[nodiscard]] Vector2f GetPosition() const;
@@ -45,6 +45,7 @@ namespace Game
         void SetSpeed(const float speed_);
         
         virtual void Move();
+        virtual size_t getCounter() const = 0;
     };
 
 }

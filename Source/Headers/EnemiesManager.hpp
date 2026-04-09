@@ -14,7 +14,7 @@
 
 #include "../../Core/GameLogic/Entity.hpp"
 
-using Manager = std::vector<std::shared_ptr<Game::Entity>>;
+using Manager = std::vector<std::shared_ptr<Sprite>>;
 using Time = std::chrono::time_point<std::chrono::steady_clock>;
 class EnemiesManager
 {
