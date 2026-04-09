@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Vector2t.hpp"
+#include <vector>
+#include <memory>
 
 namespace Game
 {
@@ -22,6 +24,10 @@ namespace Game
 
         //Axis-Aligned Bounding Box for mid point origins
         [[nodiscard]] bool CheckCollision(const Entity& other) const;
+        [[nodiscard]] bool Hit(Entity& other);
+        [[nodiscard]] bool Hit(std::shared_ptr<Entity> other);
+        bool Hit(std::vector<std::shared_ptr<Entity>>& others);
+
 
         [[nodiscard]] int GetHP() const;
         [[nodiscard]] Vector2f GetPosition() const;

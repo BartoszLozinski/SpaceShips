@@ -32,8 +32,8 @@ public:
     Spaceship();    
     virtual ~Spaceship() = default;
     
-    void checkBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites);
-    bool checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites) override;
+    void CheckBulletsCollision(std::vector<Game::Entity>& vectorOfSprites);
+    bool CheckSpritesCollision(std::vector<Game::Entity>& vectorOfSprites);
     void draw(sf::RenderWindow& i_window) override;
     void organizeBullets();
     void shoot();

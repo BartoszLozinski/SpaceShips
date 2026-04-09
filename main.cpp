@@ -107,7 +107,7 @@ int main()
         HP_TEXT.setString("HP: " + std::to_string(spaceship.GetHP()));
         BULLETS_TEXT.setString("Bullets: " + std::to_string(spaceship.getBullets()));
         
-        enemiesManager.organizeEnemies(LVL, spaceship);
+        /*enemiesManager.organizeEnemies(LVL, spaceship);
 
         spaceship.accelerate();
         spaceship.changeDirection();
@@ -145,7 +145,7 @@ int main()
             menu.setOptionConfirmed(false);
             spaceship.reset();
             enemiesManager.reset();
-        }
+        }*/
         
         spaceship.organizeBullets();
         enemiesManager.clearEnemies();

@@ -94,7 +94,7 @@ void EnemiesManager::organizeEnemies(const size_t level, const Spaceship& target
             selfSteering->aimTarget(target);
             selfSteering->regulateDirection();
             selfSteering->Move();
-            sprite->checkSpritesCollision(temporaryManager);
+            sprite->Hit(temporaryManager);
         }
         else
         {

@@ -18,11 +18,11 @@ Spaceship::Spaceship()
     sprite_.setRotation(rotation);
 }
 
-void Spaceship::checkBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites)
+void Spaceship::CheckBulletsCollision(std::vector<Game::Entity>& vectorOfSprites)
 {   
     for(auto& bullet : bulletManager_)
     {
-        bullet->checkSpritesCollision(vectorOfSprites);
+        bullet->Hit(vectorOfSprites);
         if(bullet->GetHP() <= 0 and bullet->IsInMap())
         {   
             points_++;
@@ -46,18 +46,18 @@ void Spaceship::checkBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vect
     }
 }
 
-bool Spaceship::checkSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites) 
+bool Spaceship::CheckSpritesCollision(std::vector<Game::Entity>& vectorOfSprites) 
 {   
     auto HPbeforeCollision = GetHP();
     auto collisionStatus = false;
-    if(Sprite::checkSpritesCollision(vectorOfSprites) and invulnerability_ == false)
+    if(Hit(vectorOfSprites) and invulnerability_ == false)
     {
         invulnerability_ = true;
         previousInvulnerabilityTime_ = std::chrono::steady_clock::now();
         collisionStatus = true;
     }
     
-    else if(Sprite::checkSpritesCollision(vectorOfSprites) and invulnerability_ == true)
+    else if(Hit(vectorOfSprites) and invulnerability_ == true)
     {
         this->HP = HPbeforeCollision;
         collisionStatus = true;

@@ -12,7 +12,9 @@
 #include <random>
 #include <thread>
 
-using Manager = std::vector<std::shared_ptr<Sprite>>;
+#include "../../Core/GameLogic/Entity.hpp"
+
+using Manager = std::vector<std::shared_ptr<Game::Entity>>;
 using Time = std::chrono::time_point<std::chrono::steady_clock>;
 class EnemiesManager
 {

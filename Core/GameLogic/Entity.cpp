@@ -29,6 +29,35 @@ namespace Game
     float Entity::GetSpeed() const  { return speed; }
     Vector2f Entity::GetVelocity() const { return velocity; }
 
+    bool Entity::Hit(Entity& other)
+    {
+        if (CheckCollision(other))
+        {
+            HP--;
+            --other;
+            return true;
+        }
+
+        return false;
+    };
+
+    bool Entity::Hit(std::shared_ptr<Entity> other)
+    {
+        if (other)
+            return Hit(*other);
+            
+        return false;
+    }
+
+    bool Entity::Hit(std::vector<std::shared_ptr<Entity>>& others)
+    {
+        bool result = false;
+        for (auto& other : others)
+            result |= Hit(other);
+
+        return result;
+    }
+
     bool Entity::IsInMap() const
     {
         if(position.x >= 0 && position.x <= Game::Config::ScreenWidth &&
