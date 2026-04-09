@@ -107,19 +107,19 @@ int main()
         HP_TEXT.setString("HP: " + std::to_string(spaceship.GetHP()));
         BULLETS_TEXT.setString("Bullets: " + std::to_string(spaceship.getBullets()));
         
-        /*enemiesManager.organizeEnemies(LVL, spaceship);
+        enemiesManager.organizeEnemies(LVL, spaceship);
 
         spaceship.accelerate();
         spaceship.changeDirection();
         spaceship.shoot();
         spaceship.shootBack();
         spaceship.Move();
-        spaceship.checkBulletsCollision(enemiesManager.getManager());
+        spaceship.CheckBulletsCollision(enemiesManager.getManager());
 
         LVL = (spaceship.getPoints() / 10) + 1;
         //sprites speed increased if level is higher
        
-        spaceship.checkSpritesCollision(enemiesManager.getManager());
+        spaceship.CheckSpritesCollision(enemiesManager.getManager());
 
         if(!spaceship.IsInMap())
         {
@@ -145,7 +145,7 @@ int main()
             menu.setOptionConfirmed(false);
             spaceship.reset();
             enemiesManager.reset();
-        }*/
+        }
         
         spaceship.organizeBullets();
         enemiesManager.clearEnemies();

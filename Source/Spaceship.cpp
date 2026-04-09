@@ -18,7 +18,7 @@ Spaceship::Spaceship()
     sprite_.setRotation(rotation);
 }
 
-void Spaceship::CheckBulletsCollision(std::vector<Game::Entity>& vectorOfSprites)
+void Spaceship::CheckBulletsCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites)
 {   
     for(auto& bullet : bulletManager_)
     {
@@ -46,7 +46,7 @@ void Spaceship::CheckBulletsCollision(std::vector<Game::Entity>& vectorOfSprites
     }
 }
 
-bool Spaceship::CheckSpritesCollision(std::vector<Game::Entity>& vectorOfSprites) 
+bool Spaceship::CheckSpritesCollision(std::vector<std::shared_ptr<Sprite>>& vectorOfSprites) 
 {   
     auto HPbeforeCollision = GetHP();
     auto collisionStatus = false;
